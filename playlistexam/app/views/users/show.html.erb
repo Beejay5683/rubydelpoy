@@ -1,0 +1,44 @@
+
+<h2>:|: Hello, <%= current_user.first_name.capitalize %> :|:</h2>
+<table>
+	<tr>
+		<td>
+			<form action="<%= logout_path %>" method="post">
+				<input type ='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'/>
+				<input type ='hidden' name='_method' value='delete'/>
+				<button name="" value="">Log Out</button> 
+			</form>
+		</td>
+		<td> :|: </td>
+		<td>
+			<form action="<%= songs_path %>" method="get">
+				<input type ='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'/>
+				<button name="" value="">Home</button> 
+			</form>
+		</td>
+
+	</tr>
+</table>
+
+<h2>:|: <%= @thisuser.first_name.capitalize %>'s Playlist :|:</h2>
+
+<table>
+	<tr>
+		<th>Artist</th>
+		<th> :|: </th>
+		<th>Song Title</th>
+		<th> :|: </th>
+		<th>Times <%= @thisuser.first_name.capitalize %> added the song </th>
+	</tr>
+	<% @playlist.each do |list| %>
+	<tr>
+		<td><%= list.song.artist %></td>
+		<td> :|: </td>
+		<td><%= list.song.title %></td>
+		<td> :|: </td>
+		<td><%= @thisuser.playlist.where(song_id: list.song.id).count %></td>
+	</tr>
+	<% end %>
+	
+</table>
+

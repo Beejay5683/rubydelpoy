@@ -1,0 +1,92 @@
+
+<h2>:|: Hello, <%= current_user.first_name.capitalize %> :|:</h2>
+<table>
+	<tr>
+		<td>
+			<form action="<%= logout_path %>" method="post">
+				<input type ='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'/>
+				<input type ='hidden' name='_method' value='delete'/>
+				<button name="" value="">Log Out</button> 
+			</form>
+		</td>
+		<td> :|: </td>
+		<td>
+
+		</td>
+
+	</tr>
+</table>
+
+<h3>All the songs in our hub: </h3>
+<% if flash[:message] %>
+	<h4><%= flash[:message] %></h4>
+<% end %>
+
+<table>
+	<tr>
+		<th>Artist</th>
+		<td> :|: </td>
+		<th>Song</th>
+		<td> :|: </td>
+		<th>Times Song has been added</th>
+		<td> :|: </td>
+		<th>Add to playlist</th>
+	</tr>
+	<% if @songs %>
+	<% @songs.each do |song| %>
+	<tr>
+		<td> <a href="<%= songs_show_path song.id %>"><%= song.artist %></a></td>
+		<td> :|: </td>
+		<td><%= song.title %></td>
+		<td> :|: </td>
+		<td><%= @playlist.where(song_id: song.id).count %></td>
+		<td> :|: </td>
+		<td>
+			<form action="<%= playlist_path %>" method="post" >
+				<input type ='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+				<input type ='hidden' name='play[song_id]' value='<%= song.id %>'>
+				<input type="submit" name="add" value="Add">
+			</form>
+		</td>
+	</tr>
+	<% end %>
+	<% end %>
+</table>
+
+<h3>Add Song</h3>
+<form action="<%= songs_create_path %>" method="post" >
+	<input type ='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+
+	<label>Artist</label><br>
+	<input type="text" name="song[artist]" placeholder="Artist" /><br>
+
+	<label>Title</label><br>
+	<input type="text" name="song[title]" placeholder="Title" /><br>
+
+	<input type="submit" name="submit" value="Add Song" />
+	
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
